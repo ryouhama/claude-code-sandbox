@@ -1,5 +1,6 @@
 ---
 description: コードの動作を詳しく説明
+allowed-tools: Read, Grep, Glob, Bash(git log:*), Bash(git show:*)
 ---
 
 以下のコードまたはファイルについて詳しく説明してください: $ARGUMENTS

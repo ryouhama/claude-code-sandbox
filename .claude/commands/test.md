@@ -1,5 +1,6 @@
 ---
 description: テストを実行して結果を分析
+allowed-tools: Bash(npm:*), Bash(npx:*), Bash(jest:*), Bash(vitest:*), Read, Grep, Glob
 ---
 
 以下のタスクを実行してください:

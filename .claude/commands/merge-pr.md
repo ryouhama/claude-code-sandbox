@@ -1,5 +1,6 @@
 ---
 description: カレントブランチのPRをマージ
+allowed-tools: Read, Grep, Glob, Bash(gh pr:*), Bash(git branch:*)
 ---
 
 # カレントブランチのPRをマージ
