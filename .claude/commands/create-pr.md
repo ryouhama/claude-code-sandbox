@@ -1,5 +1,6 @@
 ---
 description: カレントブランチからPRを作成
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git log:*), Bash(gh:*)
 ---
 
 # カレントブランチからPRを作成

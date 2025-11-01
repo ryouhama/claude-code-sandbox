@@ -1,5 +1,6 @@
 ---
 description: コードレビューを実行
+allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git log:*)
 ---
 
 以下のファイルまたはディレクトリをレビューしてください: $ARGUMENTS
