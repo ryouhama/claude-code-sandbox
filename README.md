@@ -1,123 +1,120 @@
-# claude-code-sandbox
-A sandbox repository for experimenting with Claude Code
+# Markdown Editor
 
-## カスタムコマンド
+リアルタイムプレビュー機能を備えたMarkdownエディタです。
 
-このリポジトリでは、Claude Codeで使用できる以下のカスタムスラッシュコマンドを定義しています。
+## 機能
 
-### `/test`
-**説明:** テストを実行して結果を分析
+- **分割表示エディタ**: 左側でMarkdownを編集、右側でリアルタイムプレビュー
+- **シンタックスハイライト**: コードブロックのシンタックスハイライト対応
+- **ファイル管理**: 複数ドキュメントの作成・編集・削除
+- **データ同期**: LocalStorage + サーバー（SQLite）への自動保存
+- **エクスポート**: HTML/PDF形式でのエクスポート
 
-**使用方法:**
-```bash
-/test [引数]
+## 技術スタック
+
+### Backend
+- Python 3.12+
+- FastAPI
+- SQLAlchemy + SQLite
+- WeasyPrint（PDFエクスポート、オプション）
+
+### Frontend
+- React 19 + TypeScript
+- Vite 7
+- CodeMirror 6（エディタ）
+- react-markdown + remark-gfm（プレビュー）
+- Tailwind CSS 4
+- Zustand（状態管理）
+
+## ディレクトリ構成
+
+```
+.
+├── backend/
+│   └── app/
+│       ├── main.py           # FastAPIエントリーポイント
+│       ├── database.py       # DB接続設定
+│       ├── models.py         # SQLAlchemyモデル
+│       ├── schemas.py        # Pydanticスキーマ
+│       ├── routers/
+│       │   └── documents.py  # ドキュメントCRUD API
+│       └── services/
+│           └── export.py     # エクスポート機能
+├── frontend/
+│   ├── index.html
+│   ├── public/
+│   └── src/
+│       ├── components/       # Reactコンポーネント
+│       ├── stores/           # Zustand store
+│       ├── api/              # APIクライアント
+│       ├── hooks/            # カスタムフック
+│       └── types/            # 型定義
+├── package.json              # Node.js依存関係（Volta管理）
+├── pyproject.toml            # Python依存関係（uv管理）
+├── vite.config.ts
+├── tailwind.config.js
+└── tsconfig.json
 ```
 
-**実行内容:**
-1. テストスイートの実行: `npm test [引数]`
-2. テスト結果の詳細な分析
-3. 失敗したテストの原因調査
-4. テストカバレッジの確認（可能な場合）
-5. 改善が必要な箇所の特定と推奨事項の報告
+## セットアップ
 
----
+### 前提条件
 
-### `/review`
-**説明:** コードレビューを実行
+- [Volta](https://volta.sh/)（Node.jsバージョン管理）
+- [uv](https://docs.astral.sh/uv/)（Pythonパッケージ管理）
 
-**使用方法:**
+### インストール
+
 ```bash
-/review <ファイルまたはディレクトリ>
+# リポジトリのクローン
+git clone <repository-url>
+cd claude-code-sandbox
+
+# フロントエンド依存関係のインストール
+npm install
+
+# バックエンド依存関係のインストール
+uv sync
+
+# PDFエクスポート機能を使用する場合（オプション）
+uv sync --extra pdf
 ```
 
-**レビュー観点:**
-- コードの可読性と保守性
-- ベストプラクティスへの準拠
-- 潜在的なバグやエラー処理の問題
-- パフォーマンスの問題
-- セキュリティ上の懸念
+## 開発
 
-レビュー結果には具体的な改善提案が含まれます。
+### バックエンドの起動
 
----
-
-### `/create-pr`
-**説明:** カレントブランチからPull Requestを作成
-
-**使用方法:**
 ```bash
-/create-pr [--title "PRタイトル"]
+uv run uvicorn backend.app.main:app --reload --port 8000
 ```
 
-**引数:**
-- `--title "タイトル文字列"`: PRのタイトルを指定（省略時は変更内容から自動生成）
+### フロントエンドの起動
 
-**実行フロー:**
-1. `git status`でカレントブランチと変更状態を確認
-   - 未ステージングのファイルがある場合はユーザーに確認
-2. `git log prod..HEAD`でブランチ独自のコミットを確認
-3. `git diff prod...HEAD`で変更差分を確認
-4. PRタイトルの決定（指定がない場合は変更内容から自動生成）
-5. `.claude/pr-template.md`を使用してPR本文を生成
-6. `.claude/work/pr-body.md`に本文を保存
-7. `gh pr create`でGitHub上にPRを作成（ベースブランチ: `prod`）
-8. 作成されたPR URLを報告
-
-**注意事項:**
-- コミットがない場合やすでにPRが存在する場合は通知されます
-- ベースブランチは常に`prod`が使用されます
-
----
-
-### `/merge-pr`
-**説明:** カレントブランチのPRをマージ
-
-**使用方法:**
 ```bash
-/merge-pr [--merge|--squash|--rebase]
+npm run dev
 ```
 
-**引数:**
-- `--merge`: 通常のマージコミット（デフォルト）
-- `--squash`: Squashマージ（すべてのコミットを1つにまとめる）
-- `--rebase`: Rebaseマージ（履歴を線形に保つ）
+ブラウザで http://localhost:5173 にアクセスしてください。
+開発サーバーは `/api` へのリクエストを自動的にバックエンド（port 8000）にプロキシします。
 
-**実行フロー:**
-1. `gh pr view`でカレントブランチのPR情報を取得
-2. PR番号、タイトル、状態、マージ可否をユーザーに表示
-3. 指定されたマージ方法でマージを実行
-4. マージ後、自動的にブランチを削除
-5. マージ結果を報告
+## ビルド
 
-**注意事項:**
-- PRが存在しない、またはマージ不可能な場合はエラーが報告されます
-
----
-
-### `/explain`
-**説明:** コードの動作を詳しく説明
-
-**使用方法:**
 ```bash
-/explain <ファイルまたはコード>
+# フロントエンドのビルド
+npm run build
+
+# ビルド結果のプレビュー
+npm run preview
 ```
 
-**説明内容:**
-- コードの目的と機能
-- 主要なロジックの流れ
-- 使用されている重要な概念やデザインパターン
-- 依存関係の解説
-- 使用例（該当する場合）
+## API エンドポイント
 
-初心者にもわかりやすく、かつ技術的に正確な説明が提供されます。
-
----
-
-## コマンドファイルの場所
-
-すべてのカスタムコマンドは `.claude/commands/` ディレクトリに定義されています:
-- `/test` → `.claude/commands/test.md`
-- `/review` → `.claude/commands/review.md`
-- `/create-pr` → `.claude/commands/create-pr.md`
-- `/merge-pr` → `.claude/commands/merge-pr.md`
-- `/explain` → `.claude/commands/explain.md`
+| メソッド | エンドポイント | 説明 |
+|---------|---------------|------|
+| GET | `/api/documents` | ドキュメント一覧取得 |
+| GET | `/api/documents/{id}` | ドキュメント取得 |
+| POST | `/api/documents` | ドキュメント作成 |
+| PUT | `/api/documents/{id}` | ドキュメント更新 |
+| DELETE | `/api/documents/{id}` | ドキュメント削除 |
+| GET | `/api/documents/{id}/export?format=html` | HTMLエクスポート |
+| GET | `/api/documents/{id}/export?format=pdf` | PDFエクスポート |

@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* プレビュー用のMarkdownスタイル */
+.prose {
+  color: #374151;
+}
+
+.prose h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.3em;
+}
+
+.prose h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.3em;
+}
+
+.prose h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.prose a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #1d4ed8;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.prose blockquote {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1em;
+  border-left: 4px solid #e5e7eb;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.prose pre {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: #f3f4f6;
+  border-radius: 0.5em;
+  overflow-x: auto;
+}
+
+.prose code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.875em;
+}
+
+.prose table {
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+
+.prose th, .prose td {
+  border: 1px solid #e5e7eb;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+.prose th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-radius: 0.5em;
+}
+
+.prose hr {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* CodeMirror追加スタイル */
+.cm-editor {
+  height: 100%;
+}
+
+.cm-editor .cm-line {
+  line-height: 1.6;
+}

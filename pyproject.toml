@@ -1,23 +1,37 @@
 [project]
-name = "claude-code-sandbox"
-version = "0.1.0"
-description = "A sandbox project for experimenting with Claude Code and Python development workflows"
+name = "markdown-editor"
+version = "1.0.0"
+description = "Markdown Editor - Python Backend + React Frontend"
 readme = "README.md"
-requires-python = ">=3.14"
-dependencies = []
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+    "sqlalchemy>=2.0.36",
+    "pydantic>=2.10.0",
+    "python-multipart>=0.0.20",
+    "markdown>=3.7",
+    "aiofiles>=24.1.0",
+]
 
 [project.optional-dependencies]
 dev = [
     "ruff>=0.8.0",
     "mypy>=1.13.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+]
+pdf = [
+    "weasyprint>=63.0",
 ]
 
+[project.scripts]
+dev = "uvicorn backend.app.main:app --reload"
+
 [tool.ruff]
-# Ruffの基本設定
 line-length = 100
 target-version = "py312"
 
-# 有効にするルール
 lint.select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -31,32 +45,29 @@ lint.select = [
     "RUF", # Ruff-specific rules
 ]
 
-# 無視するルール
 lint.ignore = [
-    "E501", # line-too-long (formatterが対応)
+    "E501", # line-too-long
 ]
 
-# 自動修正を有効化
 lint.fixable = ["ALL"]
 lint.unfixable = []
 
-# 除外するディレクトリ
 exclude = [
     ".git",
     ".venv",
     "__pycache__",
     "*.pyc",
+    "node_modules",
+    "frontend/dist",
 ]
 
 [tool.ruff.format]
-# フォーマッターの設定
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.mypy]
-# mypyの基本設定
 python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
@@ -70,6 +81,6 @@ warn_no_return = true
 warn_unreachable = true
 strict_equality = true
 
-# 段階的に型チェックを厳格化する場合はコメントアウト
-# disallow_untyped_defs = false
-# disallow_incomplete_defs = false
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["backend/tests"]
