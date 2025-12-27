@@ -93,6 +93,27 @@
 - 型ガードを適切に実装する
 - strictモードを有効にする
 
+## Git ブランチ命名規則
+
+作業内容に応じて、以下のプレフィックスを使用してブランチを作成する:
+
+- **`feat/xxxx`** - 新機能開発
+  - 例: `feat/user-authentication`, `feat/payment-integration`
+- **`fix/xxxx`** - バグ修正
+  - 例: `fix/login-error`, `fix/data-validation`
+- **`refactor/xxxx`** - リファクタリング
+  - 例: `refactor/user-service`, `refactor/api-structure`
+- **`docs/xxxx`** - ドキュメント変更
+  - 例: `docs/api-documentation`, `docs/readme-update`
+- **`chore/xxxx`** - ビルド処理、補助ツール、ライブラリ更新など
+  - 例: `chore/update-dependencies`, `chore/ci-configuration`
+
+### ブランチ命名のベストプラクティス
+
+- 小文字とハイフンを使用する（例: `feat/add-user-auth`）
+- 簡潔で説明的な名前にする
+- Issue番号がある場合は含める（例: `feat/123-add-authentication`）
+
 ## Git コミットメッセージ
 
 - 簡潔で分かりやすいメッセージ
