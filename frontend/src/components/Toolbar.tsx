@@ -63,7 +63,7 @@ export function Toolbar({ className = '' }: ToolbarProps) {
           type="text"
           value={currentDocument.title}
           onChange={(e) => updateTitle(e.target.value)}
-          className="text-lg font-medium bg-transparent border-none outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1 max-w-md"
+          className="text-lg font-medium bg-transparent border-none outline-none focus:ring-2 focus:ring-teal-500 rounded px-2 py-1 max-w-md"
           placeholder="ドキュメント名"
         />
         {isSaving && (
@@ -87,19 +87,19 @@ export function Toolbar({ className = '' }: ToolbarProps) {
         </button>
 
         <div className="relative group">
-          <button className="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors">
+          <button className="px-3 py-1.5 text-sm bg-teal-500 hover:bg-teal-600 text-white rounded-md transition-colors shadow-sm">
             エクスポート
           </button>
-          <div className="absolute right-0 mt-1 w-32 bg-white rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
+          <div className="absolute right-0 mt-1 w-32 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
             <button
               onClick={() => handleExport('html')}
-              className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 rounded-t-lg"
+              className="block w-full px-4 py-2 text-left text-sm hover:bg-teal-50 hover:text-teal-700 rounded-t-lg transition-colors"
             >
               HTML
             </button>
             <button
               onClick={() => handleExport('pdf')}
-              className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 rounded-b-lg"
+              className="block w-full px-4 py-2 text-left text-sm hover:bg-teal-50 hover:text-teal-700 rounded-b-lg transition-colors"
             >
               PDF
             </button>

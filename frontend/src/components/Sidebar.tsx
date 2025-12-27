@@ -38,12 +38,12 @@ export function Sidebar({ className = '' }: SidebarProps) {
   };
 
   return (
-    <div className={`flex flex-col bg-gray-900 text-gray-100 ${className}`}>
+    <div className={`flex flex-col bg-gray-800 text-gray-100 ${className}`}>
       <div className="p-4 border-b border-gray-700">
         <button
           onClick={createDocument}
           disabled={isLoading}
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed rounded-lg font-medium transition-colors"
+          className="w-full py-2.5 px-4 bg-teal-500 hover:bg-teal-600 disabled:bg-teal-700 disabled:cursor-not-allowed rounded-lg font-medium transition-colors shadow-sm"
         >
           + 新規ドキュメント
         </button>
@@ -51,29 +51,29 @@ export function Sidebar({ className = '' }: SidebarProps) {
 
       <div className="flex-1 overflow-y-auto">
         {documents.length === 0 ? (
-          <div className="p-4 text-center text-gray-500">
+          <div className="p-4 text-center text-gray-400">
             ドキュメントがありません
           </div>
         ) : (
-          <ul className="divide-y divide-gray-800">
+          <ul className="divide-y divide-gray-700">
             {documents.map((doc) => (
               <li
                 key={doc.id}
                 onClick={() => selectDocument(doc.id)}
-                className={`p-3 cursor-pointer hover:bg-gray-800 transition-colors group ${
-                  currentDocument?.id === doc.id ? 'bg-gray-800 border-l-2 border-blue-500' : ''
+                className={`p-3 cursor-pointer hover:bg-gray-700 transition-colors group ${
+                  currentDocument?.id === doc.id ? 'bg-gray-700 border-l-3 border-teal-400' : ''
                 }`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
                     <h3 className="font-medium truncate">{doc.title || 'Untitled'}</h3>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-gray-400 mt-1">
                       {formatDate(doc.updatedAt)}
                     </p>
                   </div>
                   <button
                     onClick={(e) => handleDelete(e, doc.id)}
-                    className="opacity-0 group-hover:opacity-100 p-1 text-gray-500 hover:text-red-400 transition-all"
+                    className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-400 transition-all"
                     title="削除"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

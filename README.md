@@ -1,4 +1,4 @@
-# Markdown Editor
+# Fude（筆）
 
 リアルタイムプレビュー機能を備えたMarkdownエディタです。
 
@@ -70,11 +70,8 @@
 git clone <repository-url>
 cd claude-code-sandbox
 
-# フロントエンド依存関係のインストール
-npm install
-
-# バックエンド依存関係のインストール
-uv sync
+# 全依存関係のインストール
+make install
 
 # PDFエクスポート機能を使用する場合（オプション）
 uv sync --extra pdf
@@ -82,30 +79,67 @@ uv sync --extra pdf
 
 ## 開発
 
-### バックエンドの起動
-
 ```bash
-uv run uvicorn backend.app.main:app --reload --port 8000
-```
+# フロントエンド・バックエンド両方を起動
+make dev
 
-### フロントエンドの起動
+# フロントエンドのみ起動
+make frontend.dev
 
-```bash
-npm run dev
+# バックエンドのみ起動
+make backend.dev
 ```
 
 ブラウザで http://localhost:5173 にアクセスしてください。
 開発サーバーは `/api` へのリクエストを自動的にバックエンド（port 8000）にプロキシします。
 
-## ビルド
+## Makeコマンド一覧
 
-```bash
-# フロントエンドのビルド
-npm run build
+### 共通コマンド
 
-# ビルド結果のプレビュー
-npm run preview
-```
+| コマンド | 説明 |
+|---------|------|
+| `make install` | 全依存関係をインストール |
+| `make dev` | フロントエンド・バックエンド両方を起動 |
+| `make build` | プロダクションビルド |
+| `make lint` | 全リンター実行 |
+| `make format` | コードフォーマット |
+| `make typecheck` | 型チェック実行 |
+| `make test` | テスト実行 |
+| `make check` | lint, typecheck, test を一括実行 |
+| `make clean` | ビルド成果物を削除 |
+| `make ci` | CIパイプライン実行 |
+
+### フロントエンドコマンド (`make frontend.xxx`)
+
+| コマンド | 説明 |
+|---------|------|
+| `make frontend.install` | フロントエンド依存関係をインストール |
+| `make frontend.dev` | Vite開発サーバー起動 |
+| `make frontend.build` | プロダクションビルド |
+| `make frontend.lint` | ESLint実行 |
+| `make frontend.typecheck` | TypeScript型チェック |
+| `make frontend.preview` | ビルド結果のプレビュー |
+| `make frontend.clean` | ビルド成果物を削除 |
+
+### バックエンドコマンド (`make backend.xxx`)
+
+| コマンド | 説明 |
+|---------|------|
+| `make backend.install` | バックエンド依存関係をインストール |
+| `make backend.dev` | FastAPI開発サーバー起動 |
+| `make backend.lint` | Ruffリンター実行 |
+| `make backend.format` | Ruffフォーマット実行 |
+| `make backend.typecheck` | mypy型チェック |
+| `make backend.test` | pytest実行 |
+| `make backend.test.cov` | カバレッジ付きテスト |
+| `make backend.clean` | Python成果物を削除 |
+
+### データベースコマンド (`make db.xxx`)
+
+| コマンド | 説明 |
+|---------|------|
+| `make db.reset` | データベースをリセット |
 
 ## API エンドポイント
 
