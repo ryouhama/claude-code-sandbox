@@ -1,4 +1,5 @@
 """SQLAlchemy データベースモデル"""
+
 import uuid
 from datetime import datetime
 
@@ -9,6 +10,7 @@ from .database import Base
 
 class Document(Base):
     """Markdownドキュメントモデル"""
+
     __tablename__ = "documents"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
