@@ -8,11 +8,11 @@ function App() {
   const { error, clearError } = useDocumentStore();
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
+    <div className="h-screen flex flex-col bg-gray-50">
       {error && (
         <div className="bg-red-500 text-white px-4 py-2 flex items-center justify-between">
           <span>エラー: {error}</span>
-          <button onClick={clearError} className="text-white hover:text-gray-200">
+          <button onClick={clearError} className="text-white hover:text-red-100">
             ✕
           </button>
         </div>
@@ -25,7 +25,7 @@ function App() {
           <Toolbar />
 
           <div className="flex-1 flex overflow-hidden">
-            <Editor className="w-1/2 border-r border-gray-300" />
+            <Editor className="w-1/2 border-r border-gray-200" />
             <Preview className="w-1/2" />
           </div>
         </div>
