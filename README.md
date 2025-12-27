@@ -1,4 +1,4 @@
-# Markdown Editor
+# Fude（筆）
 
 リアルタイムプレビュー機能を備えたMarkdownエディタです。
 
