@@ -1,6 +1,6 @@
 ---
 description: カレントブランチからPRを作成
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git log:*), Bash(gh:*)
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git log:*), Bash(gh:*), AskUserQuestion
 ---
 
 # カレントブランチからPRを作成
@@ -14,7 +14,7 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git
 ```
 
 引数は不要です。実行すると、以下の項目について対話的に質問されます：
-- ベースブランチの選択（デフォルト: `main`）
+- ベースブランチの選択（デフォルト: `prod`）
 - PRタイトルの確認（変更内容から自動生成）
 - ラベルの選択（変更内容から自動選択、確認可能）
 
@@ -24,8 +24,8 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git
    - addされていないファイル（Changes not staged for commit や Untracked files）がある場合、ユーザーにそのまま作業を進めてよいか確認する
 
 2. AskUserQuestionツールでベースブランチを質問:
-   - デフォルトは `main` を推奨（Recommended）
-   - 選択肢: `main` (Recommended), `prod`, `develop`, Other（カスタム入力）
+   - デフォルトは `prod` を推奨（Recommended）
+   - 選択肢: `prod` (Recommended), `prod`, `develop`, Other（カスタム入力）
    - 質問: "Which branch should this PR be merged into?"
    - header: "Base Branch"
 
@@ -64,7 +64,7 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git
 
 ## 注意事項
 
-- ベースブランチのデフォルト推奨は `main`（対話的に選択可能）
+- ベースブランチのデフォルト推奨は `prod`（対話的に選択可能）
 - AskUserQuestionツールを使用してユーザーとの対話的な体験を提供する
 - コミットがない場合や、すでにPRが存在する場合は、その旨をユーザーに伝える
 - PRタイトルは変更内容から生成され、ユーザーに提案して確認を求める
