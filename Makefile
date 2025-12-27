@@ -11,9 +11,6 @@
 .DEFAULT_GOAL := help
 
 # Variables
-PYTHON := python3
-VENV := .venv
-VENV_BIN := $(VENV)/bin
 UV := uv
 NPM := npm
 
@@ -122,30 +119,27 @@ frontend.clean: ## Clean frontend build artifacts
 # Backend Commands
 #==============================================================================
 
-backend.install: $(VENV) ## Install backend dependencies
-	$(UV) pip install -e ".[dev]"
-
-$(VENV): ## Create Python virtual environment
-	$(UV) venv $(VENV)
+backend.install: ## Install backend dependencies
+	$(UV) sync --all-extras
 
 backend.dev: ## Start FastAPI dev server
-	$(VENV_BIN)/uvicorn backend.app.main:app --reload --port 8000
+	$(UV) run uvicorn backend.app.main:app --reload --port 8000
 
 backend.lint: ## Run Ruff linter
-	$(VENV_BIN)/ruff check backend/
+	$(UV) run ruff check backend/
 
 backend.format: ## Format with Ruff
-	$(VENV_BIN)/ruff format backend/
-	$(VENV_BIN)/ruff check --fix backend/
+	$(UV) run ruff format backend/
+	$(UV) run ruff check --fix backend/
 
 backend.typecheck: ## Run mypy type check
-	$(VENV_BIN)/mypy backend/
+	$(UV) run mypy backend/
 
 backend.test: ## Run pytest
-	$(VENV_BIN)/pytest backend/tests/ -v
+	$(UV) run pytest backend/tests/ -v
 
 backend.test.cov: ## Run pytest with coverage
-	$(VENV_BIN)/pytest backend/tests/ -v --cov=backend --cov-report=html
+	$(UV) run pytest backend/tests/ -v --cov=backend --cov-report=html
 
 backend.clean: ## Clean Python artifacts
 	find backend -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
@@ -169,4 +163,4 @@ db.reset: ## Reset the database
 
 clean.all: clean ## Clean everything including dependencies
 	rm -rf node_modules
-	rm -rf $(VENV)
+	rm -rf .venv
