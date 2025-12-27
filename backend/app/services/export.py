@@ -1,9 +1,11 @@
 """エクスポート機能"""
+
 import markdown
 
 # weasyprintはオプショナル（PDFエクスポート用）
 try:
     from weasyprint import HTML
+
     WEASYPRINT_AVAILABLE = True
 except ImportError:
     WEASYPRINT_AVAILABLE = False
@@ -93,9 +95,7 @@ def export_to_html(title: str, content: str) -> str:
 def export_to_pdf(title: str, content: str) -> bytes:
     """MarkdownをPDFに変換"""
     if not WEASYPRINT_AVAILABLE:
-        raise ImportError(
-            "PDF export requires weasyprint. Install with: uv pip install weasyprint"
-        )
+        raise ImportError("PDF export requires weasyprint. Install with: uv pip install weasyprint")
     html_content = export_to_html(title, content)
     pdf = HTML(string=html_content).write_pdf()
     return pdf

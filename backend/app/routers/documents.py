@@ -1,16 +1,12 @@
 """ドキュメントCRUD API"""
+
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import HTMLResponse, Response
 from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..models import Document
-from ..schemas import (
-    DocumentCreate,
-    DocumentListResponse,
-    DocumentResponse,
-    DocumentUpdate,
-)
+from ..schemas import DocumentCreate, DocumentListResponse, DocumentResponse, DocumentUpdate
 from ..services.export import export_to_html, export_to_pdf, is_pdf_available
 
 router = APIRouter(prefix="/api/documents", tags=["documents"])

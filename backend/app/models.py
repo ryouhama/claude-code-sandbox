@@ -1,13 +1,16 @@
 """SQLAlchemy データベースモデル"""
+
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Text, DateTime
+
+from sqlalchemy import Column, DateTime, String, Text
 
 from .database import Base
 
 
 class Document(Base):
     """Markdownドキュメントモデル"""
+
     __tablename__ = "documents"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
