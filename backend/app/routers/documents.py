@@ -1,13 +1,13 @@
 """ドキュメントCRUD API"""
 
-from fastapi import APIRouter, Depends, HTTPException, Query
-from fastapi.responses import HTMLResponse, Response
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..models import Document
 from ..schemas import DocumentCreate, DocumentListResponse, DocumentResponse, DocumentUpdate
-from ..services.export import export_to_html, export_to_pdf, is_pdf_available
+from ..services.export import export_to_html
 
 router = APIRouter(prefix="/api/documents", tags=["documents"])
 
@@ -74,27 +74,12 @@ def delete_document(document_id: str, db: Session = Depends(get_db)):
 @router.get("/{document_id}/export")
 def export_document(
     document_id: str,
-    export_format: str = Query(default="html", alias="format", pattern="^(html|pdf)$"),
     db: Session = Depends(get_db),
 ):
-    """ドキュメントをHTML/PDF形式でエクスポート"""
+    """ドキュメントをHTML形式でエクスポート"""
     document = db.query(Document).filter(Document.id == document_id).first()
     if not document:
         raise HTTPException(status_code=404, detail="Document not found")
 
-    if export_format == "html":
-        html_content = export_to_html(document.title, document.content)
-        return HTMLResponse(content=html_content)
-
-    # PDFエクスポート
-    if not is_pdf_available():
-        raise HTTPException(
-            status_code=501,
-            detail="PDF export is not available. Install weasyprint to enable it.",
-        )
-    pdf_content = export_to_pdf(document.title, document.content)
-    return Response(
-        content=pdf_content,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f'attachment; filename="{document.title}.pdf"'},
-    )
+    html_content = export_to_html(document.title, document.content)
+    return HTMLResponse(content=html_content)
