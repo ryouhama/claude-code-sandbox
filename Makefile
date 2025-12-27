@@ -126,9 +126,7 @@ backend.install: $(VENV) ## Install backend dependencies
 	$(UV) pip install -e ".[dev]"
 
 $(VENV): ## Create Python virtual environment
-	$(PYTHON) -m venv $(VENV)
-	$(VENV_BIN)/pip install --upgrade pip
-	$(VENV_BIN)/pip install uv
+	$(UV) venv $(VENV)
 
 backend.dev: ## Start FastAPI dev server
 	$(VENV_BIN)/uvicorn backend.app.main:app --reload --port 8000
