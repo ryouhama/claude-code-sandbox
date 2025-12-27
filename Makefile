@@ -3,7 +3,7 @@
 # Backend: Python + FastAPI
 
 .PHONY: help install dev build lint format typecheck test check clean ci preview \
-        frontend.install frontend.dev frontend.build frontend.lint frontend.typecheck frontend.clean frontend.preview \
+        frontend.install frontend.dev frontend.build frontend.lint frontend.format frontend.typecheck frontend.clean frontend.preview \
         backend.install backend.dev backend.lint backend.format backend.typecheck backend.test backend.test.cov backend.clean \
         db.reset
 
@@ -44,6 +44,7 @@ help: ## Show this help message
 	@echo "  $(CYAN)frontend.dev$(RESET)         Start Vite dev server"
 	@echo "  $(CYAN)frontend.build$(RESET)       Build for production"
 	@echo "  $(CYAN)frontend.lint$(RESET)        Run ESLint"
+	@echo "  $(CYAN)frontend.format$(RESET)      Format with Prettier"
 	@echo "  $(CYAN)frontend.typecheck$(RESET)   Run TypeScript type check"
 	@echo "  $(CYAN)frontend.preview$(RESET)     Preview production build"
 	@echo "  $(CYAN)frontend.clean$(RESET)       Clean build artifacts"
@@ -75,7 +76,7 @@ build: frontend.build ## Build all projects
 
 lint: frontend.lint backend.lint ## Run all linters
 
-format: backend.format ## Format all code
+format: frontend.format backend.format ## Format all code
 
 typecheck: frontend.typecheck backend.typecheck ## Run all type checks
 
@@ -104,6 +105,9 @@ frontend.build: ## Build frontend for production
 
 frontend.lint: ## Run ESLint
 	$(NPM) run lint
+
+frontend.format: ## Format with Prettier
+	$(NPM) run format
 
 frontend.typecheck: ## Run TypeScript type check
 	npx tsc --noEmit
