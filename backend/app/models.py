@@ -1,7 +1,8 @@
 """SQLAlchemy データベースモデル"""
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Text, DateTime
+
+from sqlalchemy import Column, DateTime, String, Text
 
 from .database import Base
 

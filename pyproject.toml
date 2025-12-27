@@ -46,7 +46,9 @@ lint.select = [
 ]
 
 lint.ignore = [
-    "E501", # line-too-long
+    "E501",   # line-too-long
+    "RUF003", # ambiguous-unicode-character-comment (日本語コメントで全角括弧を許容)
+    "B008",   # function-call-in-default-argument (FastAPIのDepends()パターンを許容)
 ]
 
 lint.fixable = ["ALL"]

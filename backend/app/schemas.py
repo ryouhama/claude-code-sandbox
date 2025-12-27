@@ -1,5 +1,6 @@
 """Pydantic スキーマ定義"""
 from datetime import datetime
+
 from pydantic import BaseModel, Field
 
 
