@@ -22,7 +22,7 @@ backend/
 │   ├── routers/
 │   │   └── documents.py # ドキュメントCRUD API
 │   └── services/
-│       └── export.py    # HTML/PDFエクスポート機能
+│       └── export.py    # HTMLエクスポート機能
 └── tests/               # テストディレクトリ
 ```
 
@@ -37,25 +37,25 @@ backend/
 make backend.install
 
 # または直接uvを使用
-uv pip install -e ".[dev]"
+uv sync --extra dev
 ```
 
 ### パッケージの追加
 
 ```bash
 # 本番依存関係の追加
-uv pip install <package-name>
+uv add <package-name>
 
-# pyproject.tomlに追記することを忘れずに
+# 開発依存関係の追加
+uv add --dev <package-name>
 ```
 
 ### 依存関係の種類
 
 | 種類 | 説明 | インストール方法 |
 |------|------|------------------|
-| dependencies | 本番環境で必要 | `uv pip install -e .` |
-| dev | 開発時のみ必要 | `uv pip install -e ".[dev]"` |
-| pdf | PDFエクスポート機能 | `uv pip install -e ".[pdf]"` |
+| dependencies | 本番環境で必要 | `uv sync` |
+| dev | 開発時のみ必要 | `uv sync --extra dev` |
 
 ## 開発コマンド
 
@@ -89,7 +89,7 @@ make backend.test.cov
 | POST | `/api/documents` | ドキュメント作成 |
 | PUT | `/api/documents/{id}` | ドキュメント更新 |
 | DELETE | `/api/documents/{id}` | ドキュメント削除 |
-| GET | `/api/documents/{id}/export?format=html\|pdf` | エクスポート |
+| GET | `/api/documents/{id}/export?format=html` | HTMLエクスポート |
 
 開発サーバー起動後、以下でAPIドキュメントを確認できます:
 - Swagger UI: http://localhost:8000/docs
