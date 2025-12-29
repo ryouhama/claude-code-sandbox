@@ -8,15 +8,13 @@
 - **シンタックスハイライト**: コードブロックのシンタックスハイライト対応
 - **ファイル管理**: 複数ドキュメントの作成・編集・削除
 - **データ同期**: LocalStorage + サーバー（SQLite）への自動保存
-- **エクスポート**: HTML/PDF形式でのエクスポート
+- **エクスポート**: HTML形式でのエクスポート
 
 ## 技術スタック
 
 ### Backend
-- Python 3.12+
-- FastAPI
-- SQLAlchemy + SQLite
-- WeasyPrint（PDFエクスポート、オプション）
+
+Python + FastAPI + SQLite（詳細は [backend/README.md](./backend/README.md) を参照）
 
 ### Frontend
 - React 19 + TypeScript
@@ -72,9 +70,6 @@ cd claude-code-sandbox
 
 # 全依存関係のインストール
 make install
-
-# PDFエクスポート機能を使用する場合（オプション）
-uv sync --extra pdf
 ```
 
 ## 開発
@@ -122,33 +117,6 @@ make backend.dev
 | `make frontend.preview` | ビルド結果のプレビュー |
 | `make frontend.clean` | ビルド成果物を削除 |
 
-### バックエンドコマンド (`make backend.xxx`)
+### バックエンドコマンド (`make backend.xxx`) / データベースコマンド (`make db.xxx`)
 
-| コマンド | 説明 |
-|---------|------|
-| `make backend.install` | バックエンド依存関係をインストール |
-| `make backend.dev` | FastAPI開発サーバー起動 |
-| `make backend.lint` | Ruffリンター実行 |
-| `make backend.format` | Ruffフォーマット実行 |
-| `make backend.typecheck` | mypy型チェック |
-| `make backend.test` | pytest実行 |
-| `make backend.test.cov` | カバレッジ付きテスト |
-| `make backend.clean` | Python成果物を削除 |
-
-### データベースコマンド (`make db.xxx`)
-
-| コマンド | 説明 |
-|---------|------|
-| `make db.reset` | データベースをリセット |
-
-## API エンドポイント
-
-| メソッド | エンドポイント | 説明 |
-|---------|---------------|------|
-| GET | `/api/documents` | ドキュメント一覧取得 |
-| GET | `/api/documents/{id}` | ドキュメント取得 |
-| POST | `/api/documents` | ドキュメント作成 |
-| PUT | `/api/documents/{id}` | ドキュメント更新 |
-| DELETE | `/api/documents/{id}` | ドキュメント削除 |
-| GET | `/api/documents/{id}/export?format=html` | HTMLエクスポート |
-| GET | `/api/documents/{id}/export?format=pdf` | PDFエクスポート |
+詳細は [backend/README.md](./backend/README.md) を参照してください。
