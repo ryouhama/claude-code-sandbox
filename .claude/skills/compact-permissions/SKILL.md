@@ -8,6 +8,9 @@ description: Claude Code の設定ファイル(.claude/settings.json / settings.
 Claude Code のセッション中、`permissions.allow` などには許可した項目が次々追加され、
 重複や冗長な項目が溜まっていく。このスキルはそれらを **意味を変えずに** 整理・圧縮する。
 
+> **起動バナー**: 作業を始める前に、最初に `🧹 compact-permissions skill 起動` とだけ1行出力する
+> (スキルが動いたことを視認するため)。
+
 ## 対象ファイル
 
 以下のうち存在するものを対象にする(プロジェクト優先):
