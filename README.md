@@ -31,3 +31,12 @@ cd server && uv sync && uv run uvicorn app.main:app --reload --port 8000
 # フロントエンド (:5173、/a2a は :8000 へ proxy)
 cd frontend && pnpm install && pnpm dev
 ```
+
+よく使う操作はルートの `Makefile` に集約している(`make help` で一覧)。
+
+```sh
+make setup        # 依存インストール(server + frontend)
+make dev-server   # サーバー起動
+make dev-front    # フロント起動
+make check        # lint + test
+```
