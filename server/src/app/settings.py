@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     # 外部アプリに知らせる公開 URL(Agent Card に載る)
     public_url: str = "http://localhost:8000"
     rpc_path: str = "/a2a"
+    log_level: str = "INFO"
 
 
 @lru_cache
