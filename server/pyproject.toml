@@ -1,0 +1,41 @@
+[project]
+name = "a2a-app-server"
+version = "0.1.0"
+description = "A2A protocol agent server (internal web API)"
+readme = "README.md"
+authors = [
+    { name = "ryouhama", email = "r0730hacap@icloud.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "a2a-sdk[fastapi,http-server]>=1.1.0",
+    "fastapi>=0.139.0",
+    "pydantic-settings>=2.14.2",
+    "uvicorn[standard]>=0.51.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "app"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "ruff>=0.15.21",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
